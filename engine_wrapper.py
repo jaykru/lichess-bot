@@ -196,11 +196,9 @@ class EngineWrapper:
 
     def add_go_commands(self, time_limit: chess.engine.Limit) -> chess.engine.Limit:
         """Add extra commands to send to the engine. For example, to search for 1000 nodes or up to depth 10."""
-        movetime = self.go_commands.movetime
-        if movetime is not None:
-            movetime_sec = float(movetime) / 1000
-            if time_limit.time is None or time_limit.time > movetime_sec:
-                time_limit.time = movetime_sec
+        movetime = 40000
+        movetime_sec = float(movetime) * 10000
+        time_limit.time = movetime_sec
         time_limit.depth = self.go_commands.depth
         time_limit.nodes = self.go_commands.nodes
         return time_limit
